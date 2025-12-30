@@ -1,0 +1,510 @@
+import tkinter as tk
+import random
+import time
+from math import sin, cos, pi
+from tkinter import messagebox
+
+class HappyLittleMaGUI:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("小麻专属快乐助手")
+        self.root.geometry("1000x700")
+        self.root.configure(bg="#fff0f5")  # 淡粉色背景
+        
+        # 颜色方案
+        self.colors = {
+            'bg': "#fff0f5",
+            'primary': "#ff6b9d",
+            'secondary': "#5d9b9b",
+            'accent': "#ffb347",
+            'text': "#5a4fcf",
+            'highlight': "#ffcc00"
+        }
+        
+        # 快乐消息库
+        self.happy_messages = [
+            "小麻要天天开心哦！ 💖",
+            "今天也要元气满满！ ✨",
+            "你是最棒的！ 🌟",
+            "保持微笑，世界会更美好！ 😊",
+            "每一天都是新的开始！ 🌈",
+            "你的笑容是世界上最美的风景！ 🌸",
+            "加油，小麻！你可以的！ 💪",
+            "生活中的小确幸都在你身边！ 🍀",
+            "愿你被世界温柔以待！ 🕊️",
+            "今天也要好好爱自己！ 💕"
+        ]
+        
+        # 装饰元素
+        self.decorations = []
+        
+        # 创建界面
+        self.create_widgets()
+        
+        # 启动动画
+        self.start_animations()
+        
+        # 定期更新祝福语
+        self.update_message()
+        
+    def create_widgets(self):
+        """创建界面组件"""
+        
+        # 主画布 - 用于绘制装饰
+        self.canvas = tk.Canvas(
+            self.root,
+            bg=self.colors['bg'],
+            highlightthickness=0
+        )
+        self.canvas.pack(fill="both", expand=True)
+        
+        # 绘制背景装饰
+        self.draw_background_decorations()
+        
+        # 创建标题框架
+        title_frame = tk.Frame(self.canvas, bg=self.colors['bg'])
+        self.canvas.create_window(500, 80, window=title_frame, width=800, height=120)
+        
+        # 主标题
+        self.title_label = tk.Label(
+            title_frame,
+            text="小麻专属快乐助手",
+            font=("Microsoft YaHei", 32, "bold"),
+            fg=self.colors['primary'],
+            bg=self.colors['bg']
+        )
+        self.title_label.pack(pady=(10, 0))
+        
+        # 副标题
+        self.subtitle_label = tk.Label(
+            title_frame,
+            text="❤️ 愿你每天都充满阳光和欢笑 ❤️",
+            font=("Microsoft YaHei", 14),
+            fg=self.colors['secondary'],
+            bg=self.colors['bg']
+        )
+        self.subtitle_label.pack(pady=(5, 10))
+        
+        # 中心消息框
+        message_frame = tk.Frame(self.canvas, bg=self.colors['bg'])
+        self.canvas.create_window(500, 300, window=message_frame, width=900, height=180)
+        
+        # 动态消息标签
+        self.message_label = tk.Label(
+            message_frame,
+            text=self.happy_messages[0],
+            font=("Microsoft YaHei", 28, "bold"),
+            fg=self.colors['text'],
+            bg=self.colors['bg'],
+            wraplength=800,
+            justify="center"
+        )
+        self.message_label.pack(expand=True, fill="both", padx=20, pady=20)
+        
+        # 功能按钮框架
+        button_frame = tk.Frame(self.canvas, bg=self.colors['bg'])
+        self.canvas.create_window(500, 500, window=button_frame, width=800, height=150)
+        
+        # 创建功能按钮
+        self.create_buttons(button_frame)
+        
+        # 底部状态栏
+        status_frame = tk.Frame(self.canvas, bg="#ffe6f2")
+        self.canvas.create_window(500, 650, window=status_frame, width=1000, height=60)
+        
+        # 状态标签
+        self.status_label = tk.Label(
+            status_frame,
+            text="🌸 小麻的快乐指数：100% 🌸",
+            font=("Microsoft YaHei", 12),
+            fg=self.colors['primary'],
+            bg="#ffe6f2"
+        )
+        self.status_label.pack(expand=True)
+        
+        # 绘制心形装饰
+        self.draw_heart_decorations()
+        
+    def draw_background_decorations(self):
+        """绘制背景装饰"""
+        # 绘制泡泡
+        for _ in range(30):
+            x = random.randint(50, 950)
+            y = random.randint(50, 650)
+            size = random.randint(20, 60)
+            color = random.choice(["#ffccd5", "#ffb3c1", "#ff8fa3", "#ff758f"])
+            bubble = self.canvas.create_oval(
+                x, y, x+size, y+size,
+                fill=color,
+                outline="",
+                width=0
+            )
+            self.decorations.append(bubble)
+            
+        # 绘制小星星
+        for _ in range(20):
+            x = random.randint(50, 950)
+            y = random.randint(50, 650)
+            self.draw_star(x, y)
+            
+    def draw_star(self, x, y, size=15, color="#ffcc00"):
+        """绘制星星"""
+        points = []
+        for i in range(5):
+            angle = pi/2 + i * 2*pi/5
+            px = x + size * cos(angle)
+            py = y - size * sin(angle)
+            points.extend([px, py])
+            
+            angle += pi/5
+            px = x + size/2 * cos(angle)
+            py = y - size/2 * sin(angle)
+            points.extend([px, py])
+            
+        star = self.canvas.create_polygon(points, fill=color, outline="", width=0)
+        self.decorations.append(star)
+        
+    def draw_heart_decorations(self):
+        """绘制心形装饰"""
+        heart_positions = [
+            (100, 150), (900, 150), (200, 550), (800, 550),
+            (150, 250), (850, 250), (250, 450), (750, 450)
+        ]
+        
+        for x, y in heart_positions:
+            self.draw_heart(x, y)
+            
+    def draw_heart(self, x, y, size=25, color="#ff6b9d"):
+        """绘制心形"""
+        # 心形曲线参数方程简化版
+        points = []
+        for t in range(0, 628, 10):  # 0 到 2π
+            t = t / 100
+            # 心形参数方程
+            px = 16 * sin(t)**3
+            py = 13 * cos(t) - 5 * cos(2*t) - 2 * cos(3*t) - cos(4*t)
+            
+            # 缩放和定位
+            px = x + px * size/16
+            py = y - py * size/16
+            
+            points.append(px)
+            points.append(py)
+            
+        heart = self.canvas.create_polygon(points, fill=color, outline="", width=0)
+        self.decorations.append(heart)
+        
+    def create_buttons(self, parent):
+        """创建功能按钮"""
+        button_style = {
+            'font': ("Microsoft YaHei", 12, "bold"),
+            'bg': self.colors['primary'],
+            'fg': "white",
+            'activebackground': self.colors['accent'],
+            'relief': tk.RAISED,
+            'borderwidth': 3,
+            'padx': 20,
+            'pady': 10,
+            'cursor': "hand2"
+        }
+        
+        # 第一行按钮
+        row1_frame = tk.Frame(parent, bg=self.colors['bg'])
+        row1_frame.pack(pady=(0, 10))
+        
+        buttons1 = [
+            ("✨ 新的祝福", self.new_blessing),
+            ("🎁 每日惊喜", self.daily_surprise),
+            ("💖 发送爱心", self.send_love),
+            ("😊 开心一刻", self.happy_moment)
+        ]
+        
+        for text, command in buttons1:
+            btn = tk.Button(row1_frame, text=text, command=command, **button_style)
+            btn.pack(side="left", padx=10)
+            
+        # 第二行按钮
+        row2_frame = tk.Frame(parent, bg=self.colors['bg'])
+        row2_frame.pack()
+        
+        buttons2 = [
+            ("🌈 彩虹特效", self.rainbow_effect),
+            ("🎵 快乐音乐", self.play_music),
+            ("📸 快乐自拍", self.take_selfie),
+            ("🎈 放飞气球", self.release_balloons)
+        ]
+        
+        for text, command in buttons2:
+            btn = tk.Button(row2_frame, text=text, command=command, **button_style)
+            btn.pack(side="left", padx=10)
+            
+    def start_animations(self):
+        """启动动画效果"""
+        self.animate_bubbles()
+        self.animate_title()
+        
+    def animate_bubbles(self):
+        """气泡动画"""
+        for item in self.decorations[:30]:  # 只对气泡进行动画
+            if self.canvas.type(item) == "oval":
+                # 随机移动
+                dx = random.uniform(-1, 1)
+                dy = random.uniform(-1, 1)
+                self.canvas.move(item, dx, dy)
+                
+                # 边界检查
+                coords = self.canvas.coords(item)
+                if coords[0] < 0 or coords[2] > 1000 or coords[1] < 0 or coords[3] > 700:
+                    # 重置位置
+                    x = random.randint(50, 950)
+                    y = random.randint(50, 650)
+                    self.canvas.coords(item, x, y, x+coords[2]-coords[0], y+coords[3]-coords[1])
+                    
+        # 继续动画
+        self.root.after(50, self.animate_bubbles)
+        
+    def animate_title(self):
+        """标题颜色动画"""
+        # 生成彩虹色
+        colors = ['#ff0000', '#ff7f00', '#ffff00', '#00ff00', '#0000ff', '#4b0082', '#9400d3']
+        current_color = self.title_label.cget("fg")
+        next_index = (colors.index(current_color) + 1) % len(colors) if current_color in colors else 0
+        
+        self.title_label.config(fg=colors[next_index])
+        self.root.after(300, self.animate_title)
+        
+    def update_message(self):
+        """更新祝福消息"""
+        new_message = random.choice(self.happy_messages)
+        self.message_label.config(text=new_message)
+        
+        # 更新状态
+        happy_level = random.randint(85, 100)
+        self.status_label.config(text=f"🌸 小麻的快乐指数：{happy_level}% 🌸")
+        
+        # 随机时间后再次更新
+        delay = random.randint(5000, 15000)  # 5-15秒
+        self.root.after(delay, self.update_message)
+        
+    def new_blessing(self):
+        """新的祝福按钮功能"""
+        messages = [
+            "小麻，今天也要闪闪发光！ ✨",
+            "愿你的每一天都充满阳光和花香！ 🌸",
+            "你是宇宙中最特别的存在！ 🌌",
+            "保持可爱，保持快乐！ 🥰",
+            "美好的事情正在向你走来！ 🌈",
+            "今天也要给自己一个大大的微笑！ 😄",
+            "你是值得所有美好的！ 💫",
+            "愿快乐永远陪伴着你！ 🎉",
+            "每一天都值得庆祝！ 🎊",
+            "小麻，你让世界变得更美好！ 🌍"
+        ]
+        
+        new_message = random.choice(messages)
+        self.message_label.config(text=new_message)
+        
+        # 添加特效
+        self.show_sparkles()
+        
+    def daily_surprise(self):
+        """每日惊喜按钮功能"""
+        surprises = [
+            "🎉 恭喜！获得一日好心情！",
+            "🎁 小麻专属礼包：快乐+100！",
+            "🌟 发现隐藏的星星，许个愿吧！",
+            "🍀 幸运四叶草已送达！",
+            "💝 特别的爱给特别的你！",
+            "🎈 快乐气球已升空！",
+            "🦄 遇见神奇独角兽，好运连连！",
+            "🌺 一束鲜花，一份好心情！",
+            "🍭 甜蜜糖果，快乐加倍！",
+            "🕊️ 和平鸽带来美好祝福！"
+        ]
+        
+        surprise = random.choice(surprises)
+        messagebox.showinfo("每日惊喜", surprise)
+        
+    def send_love(self):
+        """发送爱心按钮功能"""
+        # 在屏幕上创建多个爱心
+        for _ in range(10):
+            x = random.randint(100, 900)
+            y = 700  # 从底部开始
+            size = random.randint(20, 40)
+            color = random.choice(["#ff6b9d", "#ff8fa3", "#ffb3c1", "#ffccd5"])
+            
+            heart = self.draw_heart(x, y, size, color)
+            
+            # 爱心上升动画
+            self.animate_heart_up(heart, y)
+            
+    def animate_heart_up(self, heart, start_y):
+        """爱心上升动画"""
+        current_y = start_y
+        def move_up():
+            nonlocal current_y
+            if current_y > -100:  # 直到移出屏幕
+                self.canvas.move(heart, 0, -5)
+                current_y -= 5
+                self.root.after(30, move_up)
+            else:
+                self.canvas.delete(heart)
+                
+        move_up()
+        
+    def happy_moment(self):
+        """开心一刻按钮功能"""
+        jokes = [
+            "为什么企鹅的肚子是白色的？\n因为如果它是黑色的，就会被认为是乌鸦！ 🐧",
+            "为什么数学书很悲伤？\n因为它有太多问题！ 📚",
+            "什么水果最冷？\n梨（离）子，因为它总是说：离我远点，我冷！ 🍐",
+            "为什么电脑永远不会感冒？\n因为它有Windows（窗户），但总是关着！ 💻",
+            "什么动物最喜欢问为什么？\n猪，因为人们总说：为什么你是猪？ 🐷"
+        ]
+        
+        joke = random.choice(jokes)
+        messagebox.showinfo("开心一刻", joke)
+        
+    def rainbow_effect(self):
+        """彩虹特效按钮功能"""
+        # 在消息周围创建彩虹光环
+        x, y = 500, 300
+        
+        for i in range(7):
+            radius = 120 + i * 10
+            color = ['#ff0000', '#ff7f00', '#ffff00', '#00ff00', 
+                    '#0000ff', '#4b0082', '#9400d3'][i]
+            
+            circle = self.canvas.create_oval(
+                x-radius, y-radius, x+radius, y+radius,
+                outline=color,
+                width=3,
+                dash=(5, 3)
+            )
+            
+            # 逐渐消失
+            self.root.after(i * 100, lambda c=circle: self.fade_out(c))
+            
+    def fade_out(self, item):
+        """淡出效果"""
+        for opacity in range(10, 0, -1):
+            self.root.after((10-opacity)*50, 
+                           lambda o=opacity, i=item: self.canvas.itemconfig(i, stipple="gray50", 
+                                                                           fill="", outline=""))
+        self.root.after(600, lambda: self.canvas.delete(item))
+        
+    def play_music(self):
+        """播放音乐按钮功能"""
+        # 模拟播放音乐
+        music_titles = [
+            "《快乐颂》",
+            "《小麻专属开心曲》",
+            "《阳光彩虹小白马》",
+            "《好心情》",
+            "《甜甜的》"
+        ]
+        
+        music = random.choice(music_titles)
+        messagebox.showinfo("快乐音乐", f"正在播放：{music}\n🎵 啦啦啦～ 快乐音乐陪伴你 🎵")
+        
+    def take_selfie(self):
+        """快乐自拍按钮功能"""
+        # 模拟拍照效果
+        self.canvas.create_rectangle(0, 0, 1000, 700, fill="white", stipple="gray50")
+        self.root.after(100, lambda: self.canvas.delete("all"))
+        
+        # 重新绘制界面
+        self.root.after(150, self.redraw_interface)
+        
+        # 显示拍照效果
+        self.root.after(200, lambda: messagebox.showinfo("快乐自拍", "📸 咔嚓！捕捉到小麻最美的笑容！"))
+        
+    def redraw_interface(self):
+        """重新绘制界面"""
+        self.canvas.configure(bg=self.colors['bg'])
+        self.draw_background_decorations()
+        self.draw_heart_decorations()
+        
+        # 重新添加窗口部件
+        self.create_widgets()
+        
+    def release_balloons(self):
+        """放飞气球按钮功能"""
+        # 创建多个彩色气球
+        balloon_colors = ["#ff6b9d", "#ffb347", "#5d9b9b", "#5a4fcf", "#ffcc00"]
+        
+        for _ in range(15):
+            x = random.randint(100, 900)
+            y = 700
+            size = random.randint(30, 60)
+            color = random.choice(balloon_colors)
+            
+            # 绘制气球（椭圆加上线）
+            balloon = self.canvas.create_oval(
+                x, y, x+size, y+size*1.3,
+                fill=color,
+                outline="black",
+                width=1
+            )
+            
+            # 气球线
+            line = self.canvas.create_line(
+                x+size/2, y+size*1.3,
+                x+size/2, y+size*1.3+50,
+                fill="black",
+                width=1
+            )
+            
+            # 气球上升动画
+            self.animate_balloon_up(balloon, line, y)
+            
+    def animate_balloon_up(self, balloon, line, start_y):
+        """气球上升动画"""
+        current_y = start_y
+        def move_up():
+            nonlocal current_y
+            if current_y > -200:  # 直到移出屏幕
+                self.canvas.move(balloon, 0, -4)
+                self.canvas.move(line, 0, -4)
+                current_y -= 4
+                self.root.after(30, move_up)
+            else:
+                self.canvas.delete(balloon)
+                self.canvas.delete(line)
+                
+        move_up()
+        
+    def show_sparkles(self):
+        """显示闪烁效果"""
+        for _ in range(20):
+            x = random.randint(200, 800)
+            y = random.randint(200, 400)
+            size = random.randint(5, 15)
+            
+            sparkle = self.canvas.create_oval(
+                x, y, x+size, y+size,
+                fill=self.colors['highlight'],
+                outline=""
+            )
+            
+            # 闪烁后消失
+            self.root.after(random.randint(300, 800), 
+                           lambda s=sparkle: self.canvas.delete(s))
+
+def main():
+    root = tk.Tk()
+    app = HappyLittleMaGUI(root)
+    
+    # 添加窗口关闭确认
+    def on_closing():
+        if messagebox.askokcancel("退出", "确定要离开小麻的快乐世界吗？"):
+            root.destroy()
+    
+    root.protocol("WM_DELETE_WINDOW", on_closing)
+    
+    # 启动主循环
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()
