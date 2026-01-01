@@ -14,7 +14,7 @@
         body {
             font-family: 'Microsoft YaHei', sans-serif;
             /* 背景图片路径，请替换为您自己的图片路径 */
-            background: url('YOUR_IMAGE_PATH_HERE') no-repeat center center fixed;
+            background: url('https://github.com/YoL1i/YoL1i.github.io/blob/main/2025_12_01_23_04_15_3202965.jpeg') no-repeat center center fixed;
             background-size: cover;
             min-height: 100vh;
             display: flex;
