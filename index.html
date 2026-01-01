@@ -25,7 +25,7 @@
             position: relative;
         }
         
-        /* 添加半透明遮罩层，确保文字清晰可见 */
+        /* 添加更透明的遮罩层，让背景更清晰 */
         body::before {
             content: '';
             position: absolute;
@@ -33,20 +33,22 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05); /* 降低遮罩层不透明度 */
             z-index: 0;
         }
         
         .container {
-            background: rgba(255, 255, 255, 0.92);
+            /* 降低前景透明度，让背景更清晰可见 */
+            background: rgba(255, 255, 255, 0.65); /* 从0.92降低到0.65 */
             border-radius: 30px;
             padding: 50px 40px;
             box-shadow: 0 20px 50px rgba(255, 107, 157, 0.3);
             max-width: 800px;
             animation: float 6s ease-in-out infinite;
-            border: 5px solid #ffcc00;
+            border: 5px solid rgba(255, 204, 0, 0.8); /* 降低边框透明度 */
             position: relative;
             z-index: 1;
+            backdrop-filter: blur(3px); /* 添加轻微模糊效果，提升可读性 */
         }
         
         @keyframes float {
@@ -55,25 +57,26 @@
         }
         
         h1 {
-            color: #ff6b9d;
+            color: #ff3366; /* 使用更深的颜色，提高对比度 */
             font-size: 3.2em;
             margin-bottom: 30px;
-            text-shadow: 3px 3px 0 #ffcc00;
+            text-shadow: 3px 3px 0 rgba(255, 204, 0, 0.8); /* 降低阴影透明度 */
             animation: colorChange 3s infinite alternate;
             line-height: 1.3;
         }
         
         @keyframes colorChange {
-            0% { color: #ff6b9d; }
-            50% { color: #5a4fcf; }
-            100% { color: #ff6b9d; }
+            0% { color: #ff3366; }
+            50% { color: #8a2be2; } /* 使用更深的紫色 */
+            100% { color: #ff3366; }
         }
         
         .subtitle {
             font-size: 1.5em;
-            color: #ff477e;
+            color: #ff3366; /* 使用更深的颜色 */
             margin-bottom: 20px;
             font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7); /* 添加白色阴影增强可读性 */
         }
         
         .heart-container {
@@ -86,18 +89,18 @@
         .heart {
             position: absolute;
             font-size: 100px;
-            color: #ff6b9d;
+            color: #ff3366; /* 使用更深的颜色 */
             animation: heartbeat 1.2s infinite;
-            filter: drop-shadow(0 0 10px rgba(255, 107, 157, 0.5));
+            filter: drop-shadow(0 0 10px rgba(255, 51, 102, 0.7)); /* 调整阴影 */
         }
         
         @keyframes heartbeat {
             0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.3); opacity: 0.8; }
+            50% { transform: scale(1.3); opacity: 0.9; } /* 稍微提高不透明度 */
         }
         
         .message {
-            background: linear-gradient(45deg, #ffcc00, #ff9e00);
+            background: linear-gradient(45deg, #ff9900, #ff6600); /* 使用更深的渐变色 */
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-size: 1.8em;
@@ -105,18 +108,20 @@
             margin: 25px 0;
             padding: 15px;
             border-radius: 15px;
-            background-color: rgba(255, 204, 0, 0.1);
+            background-color: rgba(255, 204, 0, 0.15); /* 降低背景透明度 */
+            text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.5); /* 添加白色阴影 */
         }
         
         .sparkle {
             font-size: 2.5em;
             display: inline-block;
             animation: sparkle 1.5s infinite;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8)); /* 添加白色光晕 */
         }
         
         @keyframes sparkle {
             0%, 100% { transform: rotate(0deg) scale(1); opacity: 1; }
-            50% { transform: rotate(180deg) scale(1.5); opacity: 0.7; }
+            50% { transform: rotate(180deg) scale(1.5); opacity: 0.8; }
         }
         
         .decorations {
@@ -130,6 +135,7 @@
         .decoration {
             font-size: 3em;
             animation: bounce 2s infinite ease-in-out;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7)); /* 添加白色光晕 */
         }
         
         @keyframes bounce {
@@ -138,7 +144,7 @@
         }
         
         .counter {
-            background: #5d9b9b;
+            background: rgba(93, 155, 155, 0.8); /* 降低背景透明度 */
             color: white;
             padding: 10px 25px;
             border-radius: 25px;
@@ -146,16 +152,18 @@
             font-size: 1.2em;
             margin-top: 30px;
             box-shadow: 0 5px 15px rgba(93, 155, 155, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3); /* 添加白色边框增强对比度 */
         }
         
         .footer {
             margin-top: 40px;
-            color: #666;
+            color: #444; /* 使用更深的颜色 */
             font-size: 1em;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); /* 添加白色阴影 */
         }
         
         .btn {
-            background: linear-gradient(45deg, #ff6b9d, #ff477e);
+            background: linear-gradient(45deg, rgba(255, 107, 157, 0.9), rgba(255, 71, 126, 0.9)); /* 降低按钮透明度 */
             color: white;
             border: none;
             padding: 15px 35px;
@@ -166,41 +174,51 @@
             margin: 20px;
             transition: all 0.3s;
             box-shadow: 0 10px 20px rgba(255, 107, 157, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.5); /* 添加白色边框 */
         }
         
         .btn:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(255, 107, 157, 0.5);
+            background: linear-gradient(45deg, rgba(255, 107, 157, 1), rgba(255, 71, 126, 1)); /* 悬停时稍微加深 */
         }
         
         .year-new {
             color: #ff3366;
             font-size: 1.8em;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 0 #ffcc00;
+            text-shadow: 2px 2px 0 rgba(255, 204, 0, 0.8);
             animation: newYearColor 2s infinite alternate;
+            font-weight: bold;
         }
         
         @keyframes newYearColor {
             0% { color: #ff3366; }
-            100% { color: #ff9900; }
+            100% { color: #ff6600; }
         }
         
         .custom-bg-notice {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.7); /* 降低背景透明度 */
             padding: 15px;
             border-radius: 15px;
             margin-top: 20px;
-            border-left: 5px solid #ff6b9d;
+            border-left: 5px solid rgba(255, 107, 157, 0.8);
             text-align: left;
             font-size: 0.9em;
+            color: #333; /* 使用更深的文字颜色 */
         }
         
         .custom-bg-notice code {
-            background: #f0f0f0;
+            background: rgba(240, 240, 240, 0.7);
             padding: 3px 5px;
             border-radius: 3px;
             font-family: monospace;
+            color: #222;
+        }
+        
+        /* 添加新样式增强文字可读性 */
+        .text-enhance {
+            text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.7);
         }
     </style>
 </head>
@@ -227,7 +245,7 @@
         
         <div style="margin: 30px 0;">
             <span class="sparkle">✨</span>
-            <span style="font-size: 1.5em; color: #5a4fcf; margin: 0 20px;">新的一年，你是最棒的！</span>
+            <span style="font-size: 1.5em; color: #5a4fcf; margin: 0 20px; text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.7);">新的一年，你是最棒的！</span>
             <span class="sparkle">✨</span>
         </div>
         
@@ -243,14 +261,6 @@
             <p>💝 祝小艳艳新年快乐，万事如意</p>
             <p id="visit-count">今日访问：正在统计...</p>
         </div>
-        
-        <div class="custom-bg-notice">
-            <strong>背景图片设置说明：</strong>
-            <p>要更换背景图片，请将CSS中第19行的 <code>background: url('YOUR_IMAGE_PATH_HERE')</code> 替换为您的图片路径。</p>
-            <p>例如：<code>background: url('images/new-year-bg.jpg')</code></p>
-        </div>
-    </div>
-    
     <script>
         // 更新快乐指数
         function updateHappiness() {
@@ -261,7 +271,7 @@
             
             // 随机颜色变化
             document.querySelector('.counter').style.background = 
-                `hsl(${Math.random() * 360}, 70%, 60%)`;
+                `hsla(${Math.random() * 360}, 70%, 60%, 0.8)`;
         }
         
         // 每5秒更新一次快乐指数
@@ -275,7 +285,7 @@
                 heart.innerHTML = '❤️';
                 heart.style.position = 'absolute';
                 heart.style.fontSize = Math.random() * 40 + 20 + 'px';
-                heart.style.color = ['#ff6b9d', '#ff477e', '#ff8fab'][Math.floor(Math.random() * 3)];
+                heart.style.color = ['#ff3366', '#ff477e', '#ff8fab'][Math.floor(Math.random() * 3)];
                 heart.style.left = Math.random() * 200 + 'px';
                 heart.style.top = Math.random() * 200 + 'px';
                 heart.style.animation = 'heartbeat 1s infinite';
@@ -304,7 +314,7 @@
                 "🌸 一束虚拟鲜花送给你，新年快乐！",
                 "🍭 甜蜜糖果，新年快乐加倍！",
                 "🌈 遇见新年彩虹，好运连连！",
-                "🎁 2024年专属祝福：愿你天天开心！"
+                "🎁 2026年专属祝福：愿你天天开心！"
             ];
             alert(surprises[Math.floor(Math.random() * surprises.length)]);
         }
@@ -322,7 +332,7 @@
             const decorations = document.querySelectorAll('.decoration');
             decorations.forEach(dec => {
                 const hue = Math.floor(Math.random() * 360);
-                dec.style.filter = `hue-rotate(${hue}deg)`;
+                dec.style.filter = `hue-rotate(${hue}deg) drop-shadow(0 0 5px rgba(255, 255, 255, 0.7))`;
             });
         }, 2000);
         
@@ -341,7 +351,7 @@
                 const countdownElement = document.createElement('div');
                 countdownElement.className = 'counter';
                 countdownElement.style.marginTop = '10px';
-                countdownElement.style.background = '#3366cc';
+                countdownElement.style.background = 'rgba(51, 102, 204, 0.8)';
                 countdownElement.innerHTML = `距离新年还有：${days}天${hours}小时${minutes}分`;
                 
                 const existingCountdown = document.querySelector('.new-year-countdown');
