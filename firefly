@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小艳艳元旦快乐！</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            /* 背景图片路径，请替换为您自己的图片路径 */
+            background: url('YOUR_IMAGE_PATH_HERE') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* 添加半透明遮罩层，确保文字清晰可见 */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 0;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 30px;
+            padding: 50px 40px;
+            box-shadow: 0 20px 50px rgba(255, 107, 157, 0.3);
+            max-width: 800px;
+            animation: float 6s ease-in-out infinite;
+            border: 5px solid #ffcc00;
+            position: relative;
+            z-index: 1;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        h1 {
+            color: #ff6b9d;
+            font-size: 3.2em;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px 0 #ffcc00;
+            animation: colorChange 3s infinite alternate;
+            line-height: 1.3;
+        }
+        
+        @keyframes colorChange {
+            0% { color: #ff6b9d; }
+            50% { color: #5a4fcf; }
+            100% { color: #ff6b9d; }
+        }
+        
+        .subtitle {
+            font-size: 1.5em;
+            color: #ff477e;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .heart-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 40px auto;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 100px;
+            color: #ff6b9d;
+            animation: heartbeat 1.2s infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 107, 157, 0.5));
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.8; }
+        }
+        
+        .message {
+            background: linear-gradient(45deg, #ffcc00, #ff9e00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.8em;
+            font-weight: bold;
+            margin: 25px 0;
+            padding: 15px;
+            border-radius: 15px;
+            background-color: rgba(255, 204, 0, 0.1);
+        }
+        
+        .sparkle {
+            font-size: 2.5em;
+            display: inline-block;
+            animation: sparkle 1.5s infinite;
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { transform: rotate(0deg) scale(1); opacity: 1; }
+            50% { transform: rotate(180deg) scale(1.5); opacity: 0.7; }
+        }
+        
+        .decorations {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .decoration {
+            font-size: 3em;
+            animation: bounce 2s infinite ease-in-out;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(20deg); }
+        }
+        
+        .counter {
+            background: #5d9b9b;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            display: inline-block;
+            font-size: 1.2em;
+            margin-top: 30px;
+            box-shadow: 0 5px 15px rgba(93, 155, 155, 0.3);
+        }
+        
+        .footer {
+            margin-top: 40px;
+            color: #666;
+            font-size: 1em;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #ff6b9d, #ff477e);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(255, 107, 157, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 107, 157, 0.5);
+        }
+        
+        .year-new {
+            color: #ff3366;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0 #ffcc00;
+            animation: newYearColor 2s infinite alternate;
+        }
+        
+        @keyframes newYearColor {
+            0% { color: #ff3366; }
+            100% { color: #ff9900; }
+        }
+        
+        .custom-bg-notice {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border-left: 5px solid #ff6b9d;
+            text-align: left;
+            font-size: 0.9em;
+        }
+        
+        .custom-bg-notice code {
+            background: #f0f0f0;
+            padding: 3px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>小艳艳元旦快乐<br>要天天开心哦！</h1>
+        
+        <div class="year-new">🎉 2026新年快乐 🎉</div>
+        
+        <div class="heart-container">
+            <div class="heart">❤️</div>
+        </div>
+        
+        <div class="message">新的一年，愿你的每一天都充满阳光和欢笑 ✨</div>
+        
+        <div class="decorations">
+            <div class="decoration" style="animation-delay: 0s;">🎊</div>
+            <div class="decoration" style="animation-delay: 0.2s;">🎆</div>
+            <div class="decoration" style="animation-delay: 0.4s;">🎈</div>
+            <div class="decoration" style="animation-delay: 0.6s;">🎁</div>
+            <div class="decoration" style="animation-delay: 0.8s;">🎇</div>
+            <div class="decoration" style="animation-delay: 1s;">🦄</div>
+        </div>
+        
+        <div style="margin: 30px 0;">
+            <span class="sparkle">✨</span>
+            <span style="font-size: 1.5em; color: #5a4fcf; margin: 0 20px;">新的一年，你是最棒的！</span>
+            <span class="sparkle">✨</span>
+        </div>
+        
+        <button class="btn" onclick="sendLove()">💖 发送新年祝福</button>
+        <button class="btn" onclick="showSurprise()">🎁 元旦惊喜</button>
+        
+        <div class="counter">
+            小艳艳快乐指数：<span id="happiness">100</span>%
+        </div>
+        
+        <div class="footer">
+            <p>🎉 专属元旦快乐贺卡 🎉</p>
+            <p>💝 祝小艳艳新年快乐，万事如意</p>
+            <p id="visit-count">今日访问：正在统计...</p>
+        </div>
+        
+        <div class="custom-bg-notice">
+            <strong>背景图片设置说明：</strong>
+            <p>要更换背景图片，请将CSS中第19行的 <code>background: url('YOUR_IMAGE_PATH_HERE')</code> 替换为您的图片路径。</p>
+            <p>例如：<code>background: url('images/new-year-bg.jpg')</code></p>
+        </div>
+    </div>
+    
+    <script>
+        // 更新快乐指数
+        function updateHappiness() {
+            const happiness = document.getElementById('happiness');
+            let value = parseInt(happiness.textContent);
+            value = Math.min(100, value + Math.floor(Math.random() * 10));
+            happiness.textContent = value;
+            
+            // 随机颜色变化
+            document.querySelector('.counter').style.background = 
+                `hsl(${Math.random() * 360}, 70%, 60%)`;
+        }
+        
+        // 每5秒更新一次快乐指数
+        setInterval(updateHappiness, 5000);
+        
+        // 发送爱心动画
+        function sendLove() {
+            const heartContainer = document.querySelector('.heart-container');
+            for(let i = 0; i < 10; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.style.position = 'absolute';
+                heart.style.fontSize = Math.random() * 40 + 20 + 'px';
+                heart.style.color = ['#ff6b9d', '#ff477e', '#ff8fab'][Math.floor(Math.random() * 3)];
+                heart.style.left = Math.random() * 200 + 'px';
+                heart.style.top = Math.random() * 200 + 'px';
+                heart.style.animation = 'heartbeat 1s infinite';
+                heartContainer.appendChild(heart);
+                
+                // 3秒后移除爱心
+                setTimeout(() => heart.remove(), 3000);
+            }
+            
+            // 显示祝福语
+            const messages = [
+                "🎉 元旦快乐，万事如意！",
+                "✨ 新的一年，愿你心想事成！",
+                "🌸 祝你新年快乐，笑口常开！",
+                "🎁 愿幸福和快乐永远陪伴你！",
+                "🌈 新年新气象，好运连连！"
+            ];
+            alert(messages[Math.floor(Math.random() * messages.length)]);
+        }
+        
+        // 显示惊喜
+        function showSurprise() {
+            const surprises = [
+                "🎉 元旦惊喜：获得一份新年好心情！",
+                "✨ 恭喜！发现隐藏的新年快乐能量！",
+                "🌸 一束虚拟鲜花送给你，新年快乐！",
+                "🍭 甜蜜糖果，新年快乐加倍！",
+                "🌈 遇见新年彩虹，好运连连！",
+                "🎁 2024年专属祝福：愿你天天开心！"
+            ];
+            alert(surprises[Math.floor(Math.random() * surprises.length)]);
+        }
+        
+        // 模拟访问计数
+        let visits = Math.floor(Math.random() * 100) + 50;
+        document.getElementById('visit-count').textContent = `今日访问：${visits} 次`;
+        setInterval(() => {
+            visits += Math.floor(Math.random() * 3);
+            document.getElementById('visit-count').textContent = `今日访问：${visits} 次`;
+        }, 10000);
+        
+        // 随机装饰颜色
+        setInterval(() => {
+            const decorations = document.querySelectorAll('.decoration');
+            decorations.forEach(dec => {
+                const hue = Math.floor(Math.random() * 360);
+                dec.style.filter = `hue-rotate(${hue}deg)`;
+            });
+        }, 2000);
+        
+        // 添加新年倒计时
+        function updateNewYearCountdown() {
+            const now = new Date();
+            const newYear = new Date(now.getFullYear() + 1, 0, 1);
+            const diff = newYear - now;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            
+            // 只在12月显示倒计时
+            if (now.getMonth() === 11) {
+                const countdownElement = document.createElement('div');
+                countdownElement.className = 'counter';
+                countdownElement.style.marginTop = '10px';
+                countdownElement.style.background = '#3366cc';
+                countdownElement.innerHTML = `距离新年还有：${days}天${hours}小时${minutes}分`;
+                
+                const existingCountdown = document.querySelector('.new-year-countdown');
+                if (existingCountdown) {
+                    existingCountdown.innerHTML = countdownElement.innerHTML;
+                } else {
+                    countdownElement.classList.add('new-year-countdown');
+                    document.querySelector('.footer').before(countdownElement);
+                }
+            }
+        }
+        
+        // 更新新年倒计时
+        updateNewYearCountdown();
+        setInterval(updateNewYearCountdown, 60000); // 每分钟更新一次
+    </script>
+</body>
+</html>
